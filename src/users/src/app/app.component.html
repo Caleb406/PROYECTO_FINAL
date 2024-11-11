@@ -1,0 +1,72 @@
+<h2>Crear Usuario</h2>
+<div *ngIf="errorMessages.length > 0">
+  <ul>
+    <li *ngFor="let message of errorMessages" style="color: red;">
+      {{ message }}
+    </li>
+  </ul>
+</div>
+<form (submit)="createUser(); $event.preventDefault();">
+  <label>Nombre de Usuario:</label>
+  <input type="text" [(ngModel)]="newUser.userName" name="userName"><br>
+  
+  <label>Contraseña:</label>
+  <input type="password" [(ngModel)]="newUser.password" name="password"><br>
+  
+  <label>Nombre:</label>
+  <input type="text" [(ngModel)]="newUser.name" name="name"><br>
+  
+  <label>Apellido:</label>
+  <input type="text" [(ngModel)]="newUser.lastName" name="lastName"><br>
+  
+  <label>Email:</label>
+  <input type="email" [(ngModel)]="newUser.email" name="email"><br>
+  
+  <label>Activo:</label>
+  <input type="checkbox" [(ngModel)]="newUser.isActive" name="isActive"><br>
+  
+  <button type="submit">Crear Usuario</button>
+</form>
+
+<h2>Editar Usuario</h2>
+<form *ngIf="newUser.id > 0" (submit)="updateUser(newUser); $event.preventDefault();">
+  <label>Nombre de Usuario:</label>
+  <input type="text" [(ngModel)]="newUser.userName" name="userName"><br>
+  
+  <label>Contraseña:</label>
+  <input type="password" [(ngModel)]="newUser.password" name="password"><br>
+  
+  <label>Nombre:</label>
+  <input type="text" [(ngModel)]="newUser.name" name="name"><br>
+  
+  <label>Apellido:</label>
+  <input type="text" [(ngModel)]="newUser.lastName" name="lastName"><br>
+  
+  <label>Email:</label>
+  <input type="email" [(ngModel)]="newUser.email" name="email"><br>
+  
+  <label>Activo:</label>
+  <input type="checkbox" [(ngModel)]="newUser.isActive" name="isActive"><br>
+  
+  <button type="submit">Actualizar Usuario</button>
+</form>
+
+
+
+<h2>Lista de Usuarios</h2>
+<div *ngIf="users.length > 0; else noUsers">
+  <ul>
+    <li *ngFor="let user of users">
+      <strong>Nombre:</strong> {{ user.name }}<br>
+      <strong>Apellido:</strong> {{ user.lastName }}<br>
+      <strong>Email:</strong> {{ user.email }}<br>
+      <strong>Activo:</strong> {{ user.isActive ? 'Sí' : 'No' }}
+      <button (click)="selectUserForEdit(user)">Editar</button>
+      <button (click)="deleteUser(user.id)">Eliminar</button>
+      <hr>
+    </li>
+  </ul>
+</div>
+<ng-template #noUsers>
+  <p>No hay usuarios disponibles.</p>
+</ng-template>
